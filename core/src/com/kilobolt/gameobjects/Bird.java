@@ -11,6 +11,7 @@ public class Bird {
 	private float rotation; // For handling bird rotation
 	private int width;
 	private int height;
+	private float ground;
 
 	public Bird(float x, float y, int width, int height) {
 		this.width = width;
@@ -18,6 +19,7 @@ public class Bird {
 		position = new Vector2(x, y);
 		velocity = new Vector2(0, 0);
 		acceleration = new Vector2(0, 460);
+		ground = y + 66;
 	}
 
 	public void update(float delta) {
@@ -48,6 +50,12 @@ public class Bird {
 
 		}
 
+		if(position.y >= ground)
+		{
+			position.y = ground;
+			velocity.y = 0;
+		}
+
 	}
 
 	public boolean isFalling() {
@@ -56,6 +64,10 @@ public class Bird {
 
 	public boolean shouldntFlap() {
 		return velocity.y > 70;
+	}
+
+	public boolean isOnGround(){
+		return position.y == ground;
 	}
 
 	public void onClick() {
